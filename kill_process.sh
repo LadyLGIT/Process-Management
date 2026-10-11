@@ -1,3 +1,10 @@
 #!/bin/bash
-kill -15 "$1"
-echo "Killed process $1"
+PID_FILE="/tmp/my_process.pid"
+if [ -f "$PID_FILE" ]; then
+  PID=$(cat "$PID_FILE")
+  kill -15 "$PID"
+  rm "$PID_FILE"
+  echo "Process $PID stopped"
+else
+  echo "No PID file found"
+fi
